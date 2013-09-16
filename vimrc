@@ -4,6 +4,8 @@ filetype off                   " required!
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+runtime macros/matchit.vim
+
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tomtom/tcomment_vim' 
 Bundle 'kchmck/vim-coffee-script' 
@@ -27,6 +29,10 @@ Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-fugitive' 
 Bundle 'tpope/vim-bundler' 
 Bundle 'tpope/vim-unimpaired' 
+Bundle 'tpope/vim-rake'
+Bundle 'tpope/vim-rails'
+Bundle 'kana/vim-textobj-user'
+Bundle 'nelstrom/vim-textobj-rubyblock'
 
 vnoremap . :norm.<CR>
 syntax on

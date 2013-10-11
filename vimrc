@@ -33,6 +33,7 @@ Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-rails'
 Bundle 'kana/vim-textobj-user'
 Bundle 'nelstrom/vim-textobj-rubyblock'
+Bundle 'altercation/vim-colors-solarized.git'
 
 vnoremap . :norm.<CR>
 syntax on
@@ -46,7 +47,7 @@ set tabstop=2
 set shiftwidth=2
 set autoindent
 set smartindent
-set number
+"set number
 "set relativenumber
 " make searches case-sensitive only if they contain upper-case characters
 set ignorecase smartcase
@@ -78,6 +79,7 @@ set ai
 set si
 set t_Co=256 " 256 colors
 set background=dark
+let g:solarized_termcolors=256
 colorscheme solarized
 
 
@@ -127,7 +129,6 @@ augroup vimrcEx
   autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
 
   " Indent p tags
-  autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
 
   " Don't syntax highlight markdown because it's often wrong
   autocmd! FileType mkd setlocal syn=off

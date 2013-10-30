@@ -34,6 +34,8 @@ Bundle 'tpope/vim-rails'
 Bundle 'kana/vim-textobj-user'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'altercation/vim-colors-solarized.git'
+Bundle 'altercation/vim-colors-solarized.git'
+Bundle 'ecomba/vim-ruby-refactoring'
 
 vnoremap . :norm.<CR>
 syntax on

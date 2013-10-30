@@ -41,6 +41,7 @@ vnoremap . :norm.<CR>
 syntax on
 filetype plugin indent on
 set noswapfile
+set hidden
 "set mouse=a
 
 set ts=2

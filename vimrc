@@ -15,33 +15,29 @@ Bundle 'nono/vim-handlebars'
 Bundle 'Townk/vim-autoclose' 
 Bundle 'bronson/vim-trailing-whitespace' 
 Bundle 'wincent/Command-T' 
-Bundle 'Lokaltog/vim-powerline' 
 Bundle 'mileszs/ack.vim' 
-"Bundle 'ecomba/vim-ruby-refactoring' 
 Bundle 'vimwiki/vimwiki' 
 Bundle 'benmills/vimux' 
-Bundle 'ervandew/screen' 
-Bundle 'vim-scripts/ZoomWin' 
 Bundle 'Blackrush/vim-gocode' 
-Bundle 'maxbrunsfeld/vim-yankstack' 
 Bundle 'dgryski/vim-godef' 
-Bundle 'scrooloose/syntastic' 
-Bundle 'tpope/vim-fugitive' 
+"Bundle 'scrooloose/syntastic' 
+
 Bundle 'tpope/vim-bundler' 
-Bundle 'tpope/vim-unimpaired' 
-Bundle 'tpope/vim-rake'
-Bundle 'tpope/vim-rails'
 Bundle 'kana/vim-textobj-user'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'altercation/vim-colors-solarized.git'
-Bundle 'altercation/vim-colors-solarized.git'
 Bundle 'ecomba/vim-ruby-refactoring'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-rails'
+
 
 vnoremap . :norm.<CR>
 syntax on
 filetype plugin indent on
 set noswapfile
 set hidden
+set autoread
 "set mouse=a
 
 set ts=2
@@ -55,7 +51,7 @@ set smartindent
 " make searches case-sensitive only if they contain upper-case characters
 set ignorecase smartcase
 " highlight current line
-set cursorline
+""set cursorline
 set cmdheight=1
 set switchbuf=useopen
 set numberwidth=5
@@ -281,8 +277,6 @@ vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
 
 nnoremap H 0
 nnoremap L $
-nnoremap 0 <silent>
-nnoremap $ <silent>
 nnoremap K <silent>
 
 " adding movements
@@ -337,28 +331,6 @@ augroup END
 " }}}
 
 
-let g:ScreenImpl = 'Tmux'
-let g:ScreenShellTmuxInitArgs = '-2'
-let g:ScreenShellInitialFocus = 'shell'
-let g:ScreenShellQuitOnVimExit = 0
-map <F5> :ScreenShellVertical<CR>
-
-" rails stuff from
-" http://velvetpulse.com/2012/11/19/improve-your-ruby-workflow-by-integrating-vim-tmux-pry/
-"command -nargs=? -complete=shellcmd W  :w | :call ScreenShellSend("load '".@%."';")
-"map <Leader>c :ScreenShellVertical bundle exec rails c<CR>
-"map <Leader>r :w<CR> :call ScreenShellSend("rspec ".@% . ':' . line('.'))<CR>
-"map <Leader>e :w<CR> :call ScreenShellSend("cucumber --format=pretty ".@% . ':' . line('.'))<CR>
-"map <Leader>b :w<CR> :call ScreenShellSend("break ".@% . ':' . line('.'))<CR>
-"
-"
-
-
-" SEND CURRENT SELECTION TO SCREEN SHELL
-vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
-vnoremap <leader>s "ky :call ScreenShellSend("<c-r>k")<cr>
-
-
 " inspect a gem
 command! -nargs=* -complete=custom,ListGems BundleOpen silent execute "!bundle open <args>"
 
@@ -380,13 +352,18 @@ if filereadable(glob(".vimrc.local"))
       source .vimrc.local
 endif
 
-
-" YankStack plugin
-nmap <c-P> <Plug>yankstack_substitute_older_paste
-nmap <c-p> <Plug>yankstack_substitute_newer_paste
-
 set pastetoggle=<leader>y
 
-"nnoremap <leader>y :set paste<cr>
-"nnoremap <leader>y :set <cr>
+nnoremap  <leader>t :tabnew<cr>
+nnoremap  <leader>s :vs<cr>
+nnoremap  <leader>w :sv<cr>
 
+function! s:ChangeHashSyntax(line1,line2)
+    let l:save_cursor = getpos(".")
+    silent! execute ':' . a:line1 . ',' . a:line2 . 's/:\([a-z0-9_]\+\)\s\+=>/\1:/g'
+    call setpos('.', l:save_cursor)
+endfunction
+
+command! -range=% ChangeHashSyntax call <SID>ChangeHashSyntax(<line1>,<line2>)
+
+set wildignore+=*.o,*.obj,.git,node_modules

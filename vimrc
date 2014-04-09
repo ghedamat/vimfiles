@@ -30,6 +30,7 @@ Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails'
+Bundle 'Shutnik/jshint2.vim'
 
 
 vnoremap . :norm.<CR>

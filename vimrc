@@ -12,7 +12,6 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'scrooloose/nerdtree' 
 Bundle 'tpope/vim-haml' 
 Bundle 'nono/vim-handlebars' 
-Bundle 'Townk/vim-autoclose' 
 Bundle 'bronson/vim-trailing-whitespace' 
 Bundle 'wincent/Command-T' 
 Bundle 'mileszs/ack.vim' 
@@ -30,7 +29,14 @@ Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-fireplace'
+Bundle 'tpope/vim-classpath'
+Bundle 'guns/vim-clojure-static'
+Bundle 'guns/vim-sexp'
+Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'Shutnik/jshint2.vim'
+Bundle 'vim-scripts/Align'
+Bundle 'vim-scripts/SQLUtilities'
 
 
 vnoremap . :norm.<CR>
@@ -133,10 +139,6 @@ augroup vimrcEx
   " Don't syntax highlight markdown because it's often wrong
   autocmd! FileType mkd setlocal syn=off
 
-  " Leave the return key alone when in command line windows, since it's used
-  " to run commands there.
-  autocmd! CmdwinEnter * :unmap <cr>
-  autocmd! CmdwinLeave * :call MapCR()
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -225,14 +227,6 @@ nnoremap <leader>. :call OpenTestAlternate()<cr>
 
 " }}}
 
-" vimClojure ---------------------- {{{
-let g:vimclojure#HighlightBuiltins = 1
-let g:vimclojure#ParenRainbow = 1
-" this should only be necessary if you don't have the ng client in your PATH
-let vimclojure#NailgunClient = "/home/tha/bin/ng"
-let vimclojure#WantNailgun = 1""
-" }}}
-
 """"""""""""""""""
 " experimentation
 """"""""""""""""""
@@ -242,11 +236,6 @@ let vimclojure#WantNailgun = 1""
 " delete around daCHAR
 " delete around paragraph dap
 " surround.vim!!
-
-" Ember mappings ---------------------- {{{
-" promote to @get
-nnoremap <leader>p "zdwa@get('<esc>"zpa')<esc>
-" }}}
 
 " global mappings ---------------------- {{{
 
@@ -301,29 +290,6 @@ nnoremap <leader>rc :VimuxPromptCommand<cr>
 nnoremap <leader>rl :RunLastVimTmuxCommand<cr>
 " }}}
 
-" autocmd experiments ---------------------- {{{
-" auto indent html files
-
-"augroup my_filetype_html
-"  autocmd!
-"  autocmd BufWritePre *.html :normal gg=G
-"  autocmd BufNewFile,BufRead *.html setlocal nowrap
-"augroup END
-
-" comments! (mmm)
-augroup my_comments
-  "autocmd!
-  "autocmd FileType javascript nnoremap <buffer> <localleader>c I//
-  "autocmd FileType ruby     nnoremap <buffer> <localleader>c I#
-augroup END
-
-augroup my_markdown
-  autocmd!
-  autocmd BufNewFile,BufRead *.md onoremap ih :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
-  autocmd BufNewFile,BufRead *.md onoremap ah :<c-u>execute "normal! ?^==\\+\r:nohlsearch\rg_vk0"<cr>k
-augroup END
-" }}}
-
 " Vimscript file settings ---------------------- {{{
 augroup filetype_vim
     autocmd!
@@ -368,3 +334,8 @@ endfunction
 command! -range=% ChangeHashSyntax call <SID>ChangeHashSyntax(<line1>,<line2>)
 
 set wildignore+=*.o,*.obj,.git,node_modules
+
+"au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces

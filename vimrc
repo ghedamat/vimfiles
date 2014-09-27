@@ -233,7 +233,13 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " UNITE VIM
 let g:unite_source_history_yank_enable = 1
+call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#custom#source('file,file/new,buffer,file_rec,line', 'matchers', 'matcher_fuzzy')
+call unite#custom#source('file_rec/async,file,file_rec', 'ignore_pattern', '\(node_modules\)\|\(bower_components\)\|\(tmp\)')
+
 nnoremap <leader>f :Unite -no-split -buffer-name=files -start-insert file_rec/async<cr>
 nnoremap <leader>/ :Unite grep:.<cr>
 nnoremap <leader>s :Unite -no-split -quick-match buffer<cr>
-nnoremap <leader>y :Unite history/yank<cr>
+nnoremap <leader>u :Unite history/yank<cr>
+"nnoremap <leader>f :CommandTFlush<cr>\|:CommandT<cr>
